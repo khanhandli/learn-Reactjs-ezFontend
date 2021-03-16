@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import productApi from './api/productApi';
 import './App.css';
 import Header from './components/Header';
@@ -10,6 +10,7 @@ import CounterFeature from './features/Counter';
 import TodoFeature from './features/Todo';
 
 function App() {
+
 	useEffect(() => {
 		const fetchProducts = async () => {
 			const params = {
@@ -29,6 +30,7 @@ function App() {
 	return (
 		<div className="App">
 			<Header />
+
 			<h1>Header</h1>
 
 			{/* Link router */}

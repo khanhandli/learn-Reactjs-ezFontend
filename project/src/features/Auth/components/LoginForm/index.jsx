@@ -38,35 +38,25 @@ const useStyles = makeStyles((theme) => (
     }
 ))
 
-RegisterForm.propTypes = {
+LoginForm.propTypes = {
     onSubmit: PropTypes.func,
 };
 
-function RegisterForm(props) {
+function LoginForm(props) {
     const classes = useStyles();
     const { onSubmit } = props;
 
     const schema = yup.object().shape({
-        fullname: yup.string().required('Vui lòng nhập đầy đủ họ tên')
-            .test('Vui lòng nhập từ 2 kí tự trở lên!',
-                'Vui lòng nhập từ 2 kí tự trở lên!', (value) => {
-                    return value.split(' ').length >= 2
-                }),
-        email: yup.string().required('Vui lòng nhập địa chỉ Email!')
+        identifier: yup.string().required('Vui lòng nhập địa chỉ Email!')
             .email('Vui lòng nhập Email hợp lệ'),
 
-        password: yup.string().required('Vui lòng nhập mật khẩu!').min(6, 'Mật khẩu tối thiêu 6 kí tự'),
-
-        retypepasswod: yup.string().required('Vui lòng nhập lại mật khẩu!')
-            .oneOf([yup.ref('password')], 'Mật khẩu nhập lại không trùng khớp!'),
+        password: yup.string().required('Vui lòng nhập mật khẩu!'),
     });
 
     const form = useForm({
         defaultValues: {
-            fullname: '',
-            email: '',
+            identifier: '',
             password: '',
-            retypepasswod: '',
         },
         resolver: yupResolver(schema),
     })
@@ -87,25 +77,23 @@ function RegisterForm(props) {
             </Avatar>
 
             <Typography className={classes.title} component="h3" variant="h5">
-                Tao Tai Khoan
+                Đăng Nhập
             </Typography>
 
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name='fullname' label="Full Name" form={form} />
-                <InputField name='email' label="Email" form={form} />
+                <InputField name='identifier' label="Email" form={form} />
                 <PasswordField name='password' label="PassWord" form={form} />
-                <PasswordField name='retypepasswod' label="Retype Password" form={form} />
 
                 <Button type='Submit' className={classes.submit}
                     variant="contained" color="primary"
                     fullWidth
                     size='small'
                 >
-                    Đăng Ký
+                    Đăng Nhập
                 </Button>
             </form>
         </div>
     );
 }
 
-export default RegisterForm;
+export default LoginForm;
